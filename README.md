@@ -12,6 +12,10 @@ These instructions will get you a copy of the project up and running for develop
 *   Terraform
 *   Python 3.9 (to test locally)
 
+## Github Secrets
+
+Make sure to create a `AWS_ACCOUNT_ID` secret inside the Github Secrets. This will be used by the CD Workflow to deploy the infrastructure. 
+
 ## Deployment Setup (OIDC)
 
 Before deploying the application, you need to set up the AWS IAM OIDC provider and roles for GitHub Actions to securely authenticate with your AWS account. This is a one-time setup.
