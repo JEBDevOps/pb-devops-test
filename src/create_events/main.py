@@ -5,7 +5,6 @@ import json
 import os
 import boto3
 
-
 def handler(event, context):
     """
     Handles the creation of an event.
