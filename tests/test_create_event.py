@@ -1,3 +1,6 @@
+"""
+Unit tests for the create_event lambda function.
+"""
 import json
 import os
 import sys
@@ -10,10 +13,16 @@ from create_events.main import handler
 
 
 class TestCreateEventHandler(unittest.TestCase):
+    """
+    Test class for the create_event handler.
+    """
 
     @patch('create_events.main.boto3')
     @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_success(self, mock_boto3):
+        """
+        Tests the handler for a successful event creation.
+        """
         mock_dynamodb = MagicMock()
         mock_table = MagicMock()
         mock_dynamodb.Table.return_value = mock_table
@@ -41,16 +50,25 @@ class TestCreateEventHandler(unittest.TestCase):
 
     @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_invalid_json(self):
+        """
+        Tests the handler for an invalid JSON body.
+        """
         event = {'body': 'invalid json'}
         context = {}
 
         response = handler(event, context)
 
         self.assertEqual(response['statusCode'], 400)
-        self.assertEqual(json.loads(response['body']), {'message': 'Invalid JSON body'})
+        self.assertEqual(
+            json.loads(response['body']),
+            {'message': 'Invalid JSON body'}
+        )
 
     @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_missing_fields(self):
+        """
+        Tests the handler for a request with missing fields.
+        """
         event = {
             'body': json.dumps({'id': '123'})
         }
@@ -59,7 +77,10 @@ class TestCreateEventHandler(unittest.TestCase):
         response = handler(event, context)
 
         self.assertEqual(response['statusCode'], 400)
-        self.assertEqual(json.loads(response['body']), {'message': 'Missing required fields: id, type, payload'})
+        self.assertEqual(
+            json.loads(response['body']),
+            {'message': 'Missing required fields: id, type, payload'}
+        )
 
 
 if __name__ == '__main__':

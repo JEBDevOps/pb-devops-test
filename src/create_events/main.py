@@ -1,8 +1,16 @@
+"""
+Lambda function to create an event.
+"""
 import json
 import boto3
 import os
 
+
 def handler(event, context):
+    """
+    Handles the creation of an event.
+    """
+    _ = context
     dynamodb = boto3.resource('dynamodb')
     table_name = os.environ.get('TABLE_NAME')
     table = dynamodb.Table(table_name)
