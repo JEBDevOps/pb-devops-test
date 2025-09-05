@@ -15,7 +15,8 @@ resource "aws_iam_policy" "github_actions_policy" {
           "iam:AttachRolePolicy",
           "iam:DetachRolePolicy",
           "iam:PassRole",
-          "iam:ListRolePolicies"
+          "iam:ListRolePolicies",
+          "iam:ListAttachedRolePolicies"
         ]
         Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.project_name}-lambda-execution-role"
       },
@@ -36,7 +37,8 @@ resource "aws_iam_policy" "github_actions_policy" {
           "dynamodb:CreateTable",
           "dynamodb:DeleteTable",
           "dynamodb:DescribeTable",
-          "dynamodb:DescribeContinuousBackups"
+          "dynamodb:DescribeContinuousBackups",
+          "dynamodb:DescribeTimeToLive"
         ]
         Resource = "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.project_name}-table"
       },
