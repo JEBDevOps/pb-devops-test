@@ -16,7 +16,8 @@ resource "aws_iam_policy" "github_actions_policy" {
           "iam:DetachRolePolicy",
           "iam:PassRole",
           "iam:ListRolePolicies",
-          "iam:ListAttachedRolePolicies"
+          "iam:ListAttachedRolePolicies",
+          "iam:GetPolicyVersion"
         ]
         Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.project_name}-lambda-execution-role"
       },
@@ -27,9 +28,19 @@ resource "aws_iam_policy" "github_actions_policy" {
           "iam:DeletePolicy",
           "iam:GetPolicy",
           "iam:PutRolePolicy",
-          "iam:DeleteRolePolicy"
+          "iam:DeleteRolePolicy",
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:GetRole",
+          "iam:UpdateAssumeRolePolicy",
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PassRole",
+          "iam:ListRolePolicies",
+          "iam:ListAttachedRolePolicies",
+          "iam:GetPolicyVersion"
         ]
-        Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${var.project_name}-lambda-execution-policy"
+        Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${var.project_name}-lambda-policy"
       },
       {
         Effect = "Allow"
@@ -38,7 +49,8 @@ resource "aws_iam_policy" "github_actions_policy" {
           "dynamodb:DeleteTable",
           "dynamodb:DescribeTable",
           "dynamodb:DescribeContinuousBackups",
-          "dynamodb:DescribeTimeToLive"
+          "dynamodb:DescribeTimeToLive",
+          "dynamodb:ListTagsOfResource"
         ]
         Resource = "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.project_name}-table"
       },
@@ -53,7 +65,10 @@ resource "aws_iam_policy" "github_actions_policy" {
           "lambda:AddPermission",
           "lambda:RemovePermission",
           "lambda:TagResource",
-          "lambda:UntagResource"
+          "lambda:UntagResource",
+          "lambda:ListVersionsByFunction",
+          "lambda:GetFunctionCodeSigningConfig",
+          "lambda:GetPolicy"
         ]
         Resource = "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:${var.project_name}-*"
       },
