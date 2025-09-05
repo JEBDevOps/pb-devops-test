@@ -31,13 +31,13 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -var "aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
         working-directory: ./infra
 
       - name: Terraform Validate
-        run: terraform validate
+        run: terraform validate -var "aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
         working-directory: ./infra
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -json
+        run: terraform apply -auto-approve -var "aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
         working-directory: ./infra
