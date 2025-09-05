@@ -2,8 +2,8 @@
 Lambda function to create an event.
 """
 import json
-import boto3
 import os
+import boto3
 
 
 def handler(event, context):

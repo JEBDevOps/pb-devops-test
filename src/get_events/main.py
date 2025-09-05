@@ -2,8 +2,8 @@
 Lambda function to get an event by id.
 """
 import json
-import boto3
 import os
+import boto3
 
 
 def handler(event, context):
