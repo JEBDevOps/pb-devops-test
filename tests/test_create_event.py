@@ -12,6 +12,7 @@ from create_events.main import handler
 class TestCreateEventHandler(unittest.TestCase):
 
     @patch('create_events.main.boto3')
+    @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_success(self, mock_boto3):
         mock_dynamodb = MagicMock()
         mock_table = MagicMock()
@@ -29,6 +30,7 @@ class TestCreateEventHandler(unittest.TestCase):
 
         response = handler(event, context)
 
+        mock_dynamodb.Table.assert_called_once_with('test_table')
         mock_table.put_item.assert_called_once_with(Item={
             'id': '123',
             'type': 'test_event',
@@ -37,6 +39,7 @@ class TestCreateEventHandler(unittest.TestCase):
         self.assertEqual(response['statusCode'], 201)
         self.assertEqual(json.loads(response['body']), {'id': '123'})
 
+    @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_invalid_json(self):
         event = {'body': 'invalid json'}
         context = {}
@@ -46,6 +49,7 @@ class TestCreateEventHandler(unittest.TestCase):
         self.assertEqual(response['statusCode'], 400)
         self.assertEqual(json.loads(response['body']), {'message': 'Invalid JSON body'})
 
+    @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
     def test_handler_missing_fields(self):
         event = {
             'body': json.dumps({'id': '123'})

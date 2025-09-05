@@ -2,11 +2,11 @@ import json
 import boto3
 import os
 
-dynamodb = boto3.resource('dynamodb')
-table_name = os.environ.get('TABLE_NAME')
-table = dynamodb.Table(table_name)
-
 def handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    table_name = os.environ.get('TABLE_NAME')
+    table = dynamodb.Table(table_name)
+
     try:
         data = json.loads(event['body'])
     except json.JSONDecodeError:
