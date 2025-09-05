@@ -45,11 +45,13 @@ class TestCreateEventHandler(unittest.TestCase):
         self.assertEqual(response['statusCode'], 201)
         self.assertEqual(json.loads(response['body']), {'id': '123'})
 
+    @patch('create_events.main.boto3')
     @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
-    def test_handler_invalid_json(self):
+    def test_handler_invalid_json(self, mock_boto3):
         """
         Tests the handler for an invalid JSON body.
         """
+        _ = mock_boto3
         event = {'body': 'invalid json'}
         context = {}
 
@@ -61,11 +63,13 @@ class TestCreateEventHandler(unittest.TestCase):
             {'message': 'Invalid JSON body'}
         )
 
+    @patch('create_events.main.boto3')
     @patch.dict(os.environ, {'TABLE_NAME': 'test_table'})
-    def test_handler_missing_fields(self):
+    def test_handler_missing_fields(self, mock_boto3):
         """
         Tests the handler for a request with missing fields.
         """
+        _ = mock_boto3
         event = {
             'body': json.dumps({'id': '123'})
         }
