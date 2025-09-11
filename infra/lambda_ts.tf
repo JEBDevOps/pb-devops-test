@@ -14,7 +14,7 @@ resource "aws_lambda_function" "create_event_ts_lambda" {
   function_name = "${var.project_name}-create-event-ts"
   role          = aws_iam_role.lambda_role.arn
   handler       = "main.handler"
-  runtime       = "nodejs18.x"
+  runtime       = "nodejs22.x"
 
   filename         = data.archive_file.create_event_ts_zip.output_path
   source_code_hash = data.archive_file.create_event_ts_zip.output_base64sha256
@@ -30,7 +30,7 @@ resource "aws_lambda_function" "get_event_ts_lambda" {
   function_name = "${var.project_name}-get-event-ts"
   role          = aws_iam_role.lambda_role.arn
   handler       = "main.handler"
-  runtime       = "nodejs18.x"
+  runtime       = "nodejs22.x"
 
   filename         = data.archive_file.get_event_ts_zip.output_path
   source_code_hash = data.archive_file.get_event_ts_zip.output_base64sha256
