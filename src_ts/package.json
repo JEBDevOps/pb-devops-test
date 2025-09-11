@@ -4,11 +4,16 @@
   "description": "TypeScript versions of the lambda functions",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.152",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
+    "aws-sdk-client-mock": "^4.1.0",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.1",
     "typescript": "^5.9.0"
   },
   "dependencies": {
