@@ -38,3 +38,16 @@ jobs:
         run: |
           source venv/bin/activate
           pytest tests/
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install TypeScript dependencies
+        run: npm install
+        working-directory: ./src_ts
+
+      - name: Test TypeScript
+        run: npm test
+        working-directory: ./src_ts
