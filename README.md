@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running for develop
 
 ## Github Secrets
 
-Make sure to create a `AWS_ACCOUNT_ID` secret inside the Github Secrets. This will be used by the CD Workflow to deploy the infrastructure. 
+Make sure to create a `AWS_ACCOUNT_ID` secret inside the Github Secrets. This will be used by the CD Workflow to deploy the infrastructure.
 
 ## Deployment Setup (OIDC)
 
@@ -50,7 +50,7 @@ The GitHub Actions workflow will then run the Terraform configuration in the `in
 
 ## API Usage
 
-The base URL will be provided in the output of the Terraform deployment, which we can get from the logs of the Github Actions Workflow, but it might be easier to find it inside the AWS Console. 
+The base URL will be provided in the output of the Terraform deployment, which we can get from the logs of the Github Actions Workflow, but it might be easier to find it inside the AWS Console.
 
 **Base URL:** `https://<api_gateway_id>.execute-api.ap-southeast-1.amazonaws.com/prod`
 
